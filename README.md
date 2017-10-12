@@ -1,6 +1,6 @@
-# pwabuilder-anrdroid
+# pwabuilder-android
 
-## PWA Builder Andrpid Platform
+## PWA Builder Android Platform
 
 Android platform module for [PWA Builder](https://github.com/manifoldjs/ManifoldJS), a tool for creating hosted web applications based on a [W3C Web App manifest](http://www.w3.org/TR/appmanifest/).
 
