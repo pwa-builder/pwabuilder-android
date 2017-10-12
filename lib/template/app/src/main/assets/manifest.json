@@ -1,0 +1,16 @@
+{
+  "dir": "ltr",
+  "lang": "en-us",
+  "name": "Microsoft - Official Home Page",
+  "scope": "https://www.microsoft.com/*/*",
+  "display": "standalone",
+  "start_url": "https://www.microsoft.com/",
+  "short_name": "Microsoft - Off",
+  "theme_color": "transparent",
+  "description": "At Microsoft our mission and values are to help people and businesses throughout the world realize their full potential.",
+  "orientation": "any",
+  "background_color": "transparent",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": []
+}
