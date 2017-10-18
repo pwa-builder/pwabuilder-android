@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.*;
 
@@ -17,26 +18,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        // Code below should be refactored into a new AndroidHostedWebApp class
         loadManifest(DEFAULT_MANIFEST_FILE);
-        setWebView((WebView) this.findViewById(R.id.webview));
-        setName(this);
         setDisplay(this);
         setOrientation(this);
+        setName(this);
+        setContentView(R.layout.activity_main);
+        setWebView((WebView) this.findViewById(R.id.webview));
     }
 
-    // Code below should be refactored into a new AndroidHostedWebApp class
     private void setDisplay(Activity activity) {
         if (this.manifestObject.optString("display").equals("fullscreen")) {
-            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            activity.setTheme(R.style.FullscreenTheme);
         } else {
-            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+            activity.setTheme(R.style.AppTheme);
         }
     }
 
