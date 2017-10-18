@@ -16,6 +16,8 @@
 
 3. Open the Gradle file from Android Studio (import project)
 
+4. (Optional) Customize the splash screen of the app. Edit `app\res\drawable\splash.xml` and specify the image of your preference. If found, PWA Builder will place a suggested splash screen in `app\res\mipmap\ic_splash.png`.
+
 4. Use Build Menu to create package.
 
 
