@@ -33,6 +33,7 @@
     "Android"
   ],
   "dependencies": {
+    "colornames": "^1.1.1",
     "pwabuilder-lib": "^2.0.0-rc",
     "q": "^1.4.1",
     "xmldom": "^0.1.27"
