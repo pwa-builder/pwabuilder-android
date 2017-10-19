@@ -34,10 +34,10 @@
   ],
   "dependencies": {
     "pwabuilder-lib": "^2.0.0-rc",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "xmldom": "^0.1.27"
   },
-  "optionalDependencies": {
-  },
+  "optionalDependencies": {},
   "devDependencies": {
     "blanket": "1.1.6",
     "grunt": "^0.4.5",
