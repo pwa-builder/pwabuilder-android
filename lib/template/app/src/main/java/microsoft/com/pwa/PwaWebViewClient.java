@@ -1,5 +1,7 @@
 package microsoft.com.pwa;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.webkit.*;
 
 import java.net.MalformedURLException;
@@ -26,10 +28,12 @@ class PwaWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (this.scoped(url)) {
-            view.loadUrl(url);
+            return false;
+        } else {
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            view.getContext().startActivity(i);
+            return true;
         }
-
-        return true;
     }
 
     private boolean scoped(String url) {
