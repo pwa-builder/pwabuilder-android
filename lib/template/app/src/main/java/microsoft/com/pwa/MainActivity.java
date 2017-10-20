@@ -1,12 +1,11 @@
 package microsoft.com.pwa;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.*;
 
 import org.json.*;
@@ -20,12 +19,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadManifest(DEFAULT_MANIFEST_FILE);
+        loadManifest();
         setDisplay(this);
         setOrientation(this);
         setName(this);
         setContentView(R.layout.activity_main);
-        setWebView((WebView) this.findViewById(R.id.webview));
+        setWebView((WebView) this.findViewById(R.id.webView));
     }
 
     private void setDisplay(Activity activity) {
@@ -54,24 +53,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void setOrientation(Activity activity) {
         String orientation = this.manifestObject.optString("orientation");
-        if (orientation.equals(LANDSCAPE_PRIMARY)) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        } else if (orientation.equals(PORTRAIT_PRIMARY)) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else if (orientation.equals(LANDSCAPE)) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        } else if (orientation.equals(PORTRAIT)) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-        } else if (orientation.equals(LANDSCAPE_SECONDARY)) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
-        } else if (orientation.equals(PORTRAIT_SECONDARY)) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-        } else {
-            // ANY and NATURAL
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        switch (orientation) {
+            case LANDSCAPE_PRIMARY:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                break;
+            case PORTRAIT_PRIMARY:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                break;
+            case LANDSCAPE:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                break;
+            case PORTRAIT:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                break;
+            case LANDSCAPE_SECONDARY:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+                break;
+            case PORTRAIT_SECONDARY:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+                break;
+            case ANY:
+            case NATURAL:
+            default:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                break;
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void setWebView(WebView myWebView) {
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -84,17 +93,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String DEFAULT_MANIFEST_FILE = "manifest.json";
     private JSONObject manifestObject;
 
-    private void loadManifest(String manifestFile){
-        if(this.assetExists((manifestFile))){
+    private void loadManifest() {
+        if (this.assetExists((DEFAULT_MANIFEST_FILE))) {
             try {
-                this.manifestObject = this.loadLocalManifest(manifestFile);
+                this.manifestObject = this.loadLocalManifest();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            catch (JSONException ex) {
-                // TODO: log exception
-            }
-        }
-        else {
-            // TODO: log error
         }
     }
 
@@ -109,15 +114,17 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private JSONObject loadLocalManifest(String manifestFile) throws JSONException {
+    private JSONObject loadLocalManifest() throws JSONException {
         try {
-            InputStream inputStream = this.getResources().getAssets().open(manifestFile);
+            InputStream inputStream = this.getResources().getAssets().open(DEFAULT_MANIFEST_FILE);
             int size = inputStream.available();
             byte[] bytes = new byte[size];
-            inputStream.read(bytes);
+            int readBytes = inputStream.read(bytes);
             inputStream.close();
-            String jsonString = new String(bytes, "UTF-8");
-            return new JSONObject(jsonString);
+            if (readBytes > 0) {
+                String jsonString = new String(bytes, "UTF-8");
+                return new JSONObject(jsonString);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

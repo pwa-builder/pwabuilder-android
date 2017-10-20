@@ -19,12 +19,13 @@ class PwaWebViewClient extends WebViewClient {
                 scopeUrl = new URL(scopeUrl, "*");
             }
 
-            this.scope_pattern = this.regexFromPattern(scopeUrl.toString(), true);
+            this.scope_pattern = this.regexFromPattern(scopeUrl.toString());
         } catch (MalformedURLException e) {
             this.scope_pattern = null;
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (this.scoped(url)) {
@@ -40,12 +41,12 @@ class PwaWebViewClient extends WebViewClient {
         return this.scope_pattern == null || this.scope_pattern.matcher(url).matches();
     }
 
-    private Pattern regexFromPattern(String pattern, boolean allowWildcards) {
+    private Pattern regexFromPattern(String pattern) {
         final String toReplace = "\\.[]{}()^$?+|";
         StringBuilder regex = new StringBuilder();
         for (int i = 0; i < pattern.length(); i++) {
             char c = pattern.charAt(i);
-            if (c == '*' && allowWildcards) {
+            if (c == '*') {
                 regex.append(".");
             } else if (toReplace.indexOf(c) > -1) {
                 regex.append('\\');
