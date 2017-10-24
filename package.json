@@ -4,12 +4,12 @@
   "description": "PWA Builder Android Platform",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pwa-builder/pwabuilder-android"
+    "url": "https://github.com/pwa-builder/pwabuilder-android.git"
   },
   "engines": {
     "node": ">=0.12.0"
   },
-  "engine-strict": true,
+  "engineStrict": true,
   "author": {
     "name": "TBD",
     "email": "TBD",
