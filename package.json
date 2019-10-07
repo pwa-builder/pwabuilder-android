@@ -1,6 +1,6 @@
 {
   "name": "pwabuilder-android",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0-rc.3",
   "description": "PWA Builder Android Platform",
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
   ],
   "dependencies": {
     "colornames": "^1.1.1",
-    "pwabuilder-lib": "^2.0.0-rc",
+    "pwabuilder-lib": "^2.0.4-RC.4",
     "q": "^1.4.1",
     "xmldom": "^0.1.27"
   },
