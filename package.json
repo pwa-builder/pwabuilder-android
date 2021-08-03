@@ -36,7 +36,7 @@
     "colornames": "^1.1.1",
     "pwabuilder-lib": "^2.0.4-RC.4",
     "q": "^1.4.1",
-    "xmldom": "^0.1.27"
+    "xmldom": "^0.6.0"
   },
   "optionalDependencies": {},
   "devDependencies": {
